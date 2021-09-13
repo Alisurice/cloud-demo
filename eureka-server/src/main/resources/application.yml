@@ -1,0 +1,35 @@
+server:
+  port: 8761 #指定运行端口
+spring:
+  application:
+    name: eureka-server #指定服务名称
+  datasource:
+    url: jdbc:mysql://localhost:3306/mallcloud?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+#    initialization-mode: always
+eureka:
+  client:
+    # 是否要注册到其他Eureka Server实例。相当于这个server也作为一个client，注册到其他的Eureka Server实例
+    register-with-eureka: false
+    # 是否要从其他Eureka Server实例获取数据，理解为从其他的Eureka Server拖取注册表，相当于同步，相当于git的pull？
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+management:
+  endpoint:
+    health:
+      # 是否展示健康检查详情
+      show-details: always
+  #  注意有没有s
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
