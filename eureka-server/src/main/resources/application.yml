@@ -1,27 +1,21 @@
-server:
-  port: 8761 #指定运行端口
 spring:
   application:
     name: eureka-server #指定服务名称
-  datasource:
-    url: jdbc:mysql://localhost:3306/mallcloud?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    schema: classpath:schema.sql
-    data: classpath:data.sql
-#    initialization-mode: always
+  
+
+server:
+  port: 8761
+
 eureka:
   client:
-    # 是否要注册到其他Eureka Server实例。相当于这个server也作为一个client，注册到其他的Eureka Server实例
+    # 是否要注册到其他Eureka Server实例
     register-with-eureka: false
-    # 是否要从其他Eureka Server实例获取数据，理解为从其他的Eureka Server拖取注册表，相当于同步，相当于git的pull？
+    # 是否要从其他Eureka Server实例获取数据
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-
-
+#这部分被peer1和peer2共享，如果peer1有对应配置，则会覆盖这里的配置
 management:
   endpoint:
     health:
@@ -32,4 +26,36 @@ management:
     web:
       exposure:
         include: '*'
+---
+spring:
+  config:
+    activate:
+      on-profile: peer1 # 指定profile=peer1
 
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: peer1 # 指定当profile=peer1时，主机名是peer1
+    home-page-url: eureka
+  client:
+    service-url:
+      defaultZone: http://peer2:8762/eureka/  #设置服务注册中心的URL，将自己注册到peer2这个Eureka上面去，对应register-with-eureka
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: peer2
+
+server:
+  port: 8762
+
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
