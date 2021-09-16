@@ -2,7 +2,7 @@ server:
   port: 8010 #指定运行端口
 spring:
   application:
-    name: consumer-movie #指定服务名称
+    name: consumer-movie #指定服务名称，不要使用下划线，不然ribbon会报错？
 
 
 eureka:

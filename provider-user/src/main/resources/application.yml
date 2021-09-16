@@ -8,11 +8,6 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-
-
-
-
 eureka:
   client:
     healthcheck:
@@ -30,5 +25,14 @@ management:
     web:
       exposure:
         include: shutdown
+logging:
+  level:
+    com.demo.cloud.mapper: debug
+---
+server:
+  port: 8001 #指定运行端口
 
-
+spring:
+  config:
+    activate:
+      on-profile: provider2

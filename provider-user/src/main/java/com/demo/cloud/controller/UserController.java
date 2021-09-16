@@ -16,7 +16,7 @@ public class UserController {
     @Resource
     private UserMapper userMapper;
 
-    @RequestMapping(value = "/users/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
     public User findById(@PathVariable Long id) {
         return this.userMapper.selectByPrimaryKey(id);
