@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 
-@RequestMapping("/movies")
+@RequestMapping(value = "/movies")
 @RestController
 public class MovieController {
     private static final Logger LOG = LoggerFactory.getLogger(MovieController.class);
