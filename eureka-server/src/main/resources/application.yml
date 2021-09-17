@@ -28,9 +28,7 @@ management:
         include: '*'
 ---
 spring:
-  config:
-    activate:
-      on-profile: peer1 # 指定profile=peer1
+  profiles: peer1 # 指定profile=peer1
 
 server:
   port: 8761
@@ -44,11 +42,8 @@ eureka:
       defaultZone: http://peer2:8762/eureka/  #设置服务注册中心的URL，将自己注册到peer2这个Eureka上面去，对应register-with-eureka
 
 ---
-
 spring:
-  config:
-    activate:
-      on-profile: peer2
+  profiles: peer2
 
 server:
   port: 8762
