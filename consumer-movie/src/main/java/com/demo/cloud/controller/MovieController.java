@@ -22,6 +22,7 @@ public class MovieController {
     private RestTemplate restTemplate;
     @Autowired
     private LoadBalancerClient loadBalancer;
+
     @GetMapping("/users/{id}")
     public User findUser(@PathVariable long id){
         //User user = this.restTemplate.getForObject("http://localhost:8000/users/{id}",User.class, id);
@@ -32,6 +33,8 @@ public class MovieController {
         ServiceInstance instance = loadBalancer.choose("provider-user");
         LOG.info("{}:{}:{}",instance.getServiceId(),instance.getHost(), instance.getPort());
 
+
         return user;
     }
+
 }

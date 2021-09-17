@@ -2,7 +2,6 @@ package com.demo.cloud.controller;
 
 import com.demo.cloud.mapper.UserMapper;
 import com.demo.cloud.model.User;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
