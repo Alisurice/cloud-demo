@@ -33,6 +33,4 @@ server:
   port: 8001 #指定运行端口
 
 spring:
-  config:
-    activate:
-      on-profile: provider2
+  profiles: provider2
