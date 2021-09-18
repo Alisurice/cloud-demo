@@ -27,15 +27,17 @@ public class MovieController {
     private UserFeignClient userFeignClient;
     @Autowired
     private LoadBalancerClient loadBalancer;
+    @Autowired
+    private RestTemplate restTemplate;
 
     //也可以不配置fallbackMethod，这时候默认抛出异常
-    @HystrixCommand(fallbackMethod = "findUserFallBack")
     @GetMapping("/users/{id}")
-    public User findUser(@PathVariable long id){
-        //User user = this.restTemplate.getForObject("http://localhost:8000/users/{id}",User.class, id);
+    @HystrixCommand(fallbackMethod = "findUserFallBack")
+    public User findUser(@PathVariable("id") long id){
+        User user = this.restTemplate.getForObject("http://provider-user/users/{id}",User.class, id);
 
         //负载均衡
-        User user = this.userFeignClient.findById(id);
+        //User user = this.userFeignClient.findById(id);
         //打印当前选择的微服务节点
         ServiceInstance instance = loadBalancer.choose("provider-user");
         LOG.info("{}:{}:{}",instance.getServiceId(),instance.getHost(), instance.getPort());
@@ -44,7 +46,7 @@ public class MovieController {
         return user;
     }
 
-    public User findUserFallBack(long id, Throwable throwable){
+    public User findUserFallBack(@PathVariable("id") long id, Throwable throwable){
         LOG.error("进入回退方法", throwable);
         return new User(id,"默认用户","默认用户",0,new BigDecimal(1));
     }
