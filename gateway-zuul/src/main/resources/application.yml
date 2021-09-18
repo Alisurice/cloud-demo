@@ -1,0 +1,22 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+zuul:
+  prefix: /api # 如果有这个前缀，则先忽视前缀，再来进行路由配对。如/api/consumer则只把/consumer当作路由键，由此寻找对应ip
+  strip-prefix: true # true则在拼接实际域名时去掉前缀，如/api/consumer 变成 /consumer,false的话就是/api/consumer
+  routes:
+    consumer-movie: /test/** # 将网关网址为/test/**的，都转换为/consumer-movie/**，没有**会出问题
+#    原始网关api http://localhost:8040/   consumer-movie  /movies/users/1
+#    配置后 http://localhost:8040/    api/test           /movies/users/1
+#    当然，我们仍然可以用 http://localhost:8040/api/consumer-movie/movies/users/1 进行访问，除非配置了zuul.ignored-services之类的
+
+
+logging:
+  level:
+    com.netflix.loadbalancer.LoadBalancerContext: debug
