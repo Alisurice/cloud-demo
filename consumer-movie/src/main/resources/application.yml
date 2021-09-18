@@ -22,3 +22,14 @@ ribbon:
   eager-load:
     enabled: true
     clients: provider-user
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream,health,info
+
+

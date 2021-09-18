@@ -13,9 +13,19 @@ public class User implements Serializable {
 
     private Integer age;
 
-    private BigDecimal balance;
+    private BigDecimal balance; //余额
 
     private static final long serialVersionUID = 1L;
+    public User(){
+
+    }
+    public User(Long id, String username, String name, Integer age, BigDecimal balance) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.age = age;
+        this.balance = balance;
+    }
 
     public Long getId() {
         return id;
