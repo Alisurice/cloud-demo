@@ -1,0 +1,2 @@
+encrypt:
+  key: foo1  # 设置对称密钥

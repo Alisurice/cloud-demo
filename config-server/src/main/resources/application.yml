@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: dbuser
+    password: '{cipher}eb9c41217b56962e66f1bbc1cc933966ef1aebba612a9fd674052810d5e2407b'
+  application:
+    name: config-server
+  #云配置中心
+  cloud:
+    config:
+      server:
+        git:
+#          uri: 'file:///C:/Users/xxxx/IdeaProjects/mallcloud'
+          uri: 'file:///${user.home}/IdeaProjects/mallcloud'
+          search-paths: config-server/src/main/resources
+
+
+logging:
+  level:
+    org.springframework.cloud: debug # 通过debug，我们可以看到根目录在（o.s.boot.SpringApplication started by xxxxx in C:\Users\xxxxx\IdeaProjects\mallcloud)
+
+
