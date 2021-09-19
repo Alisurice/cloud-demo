@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ConfigClientController {
-    //@Value("${server.port}")
-    @Value("${profile}")
+    @Value("${server.port}")
+    //@Value("${profile}")
 
     private String profile;
 
