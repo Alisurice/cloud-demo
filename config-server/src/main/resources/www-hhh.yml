@@ -1,0 +1,22 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: 'file:classpath:..//'
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          # Git仓库地址
+#          uri: https://git.oschina.net/itmuch/spring-cloud-config-repo.git
+#          # Git仓库账号
+#          username:
+#          # Git仓库密码
+#          password:
