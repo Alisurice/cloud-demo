@@ -1,11 +1,11 @@
 spring:
   application:
-    name: www    # 对应config server所获取的配置文件的{application}
+    name: microservice-foo     # 对应config server所获取的配置文件的{application}
   cloud:
     config:
       uri: http://localhost:8080/
-      profile: hhh            # profile对应config server所获取的配置文件中的{profile}
-      label: hhh # lable可以对应config server的application.yml下的search-locations定义的目录的子目录hhh
+      profile: dev            # profile对应config server所获取的配置文件中的{profile}
+      label: master # lable可以对应config server的application.yml下的search-locations定义的目录的子目录hhh
 
 #  client这里定义的的application.name、profie、label，将参考下面的规则，和config-server获取到的配置文件进行匹配。
 #  这种匹配是按优先级排序的，高优先级会覆盖低优先级的定义，换句话说，高低优先级都会起效

@@ -3,29 +3,22 @@ server:
 spring:
   application:
     name: config-server
-  # 本地配置中心，以下的profiles.active 、search-locations都是必须的
-  profiles:
-    active: native
+  #云配置中心
   cloud:
     config:
       server:
-        native:
-          search-locations: 'file:./config-server/src/main/resources/'
-#          search-locations: 'file:C:/Users/xxxxx/IdeaProjects/mallcloud/config-server/src/main/resources/'
+        git:
+          uri: https://git.oschina.net/itmuch/spring-cloud-config-repo.git # Git仓库地址
+          repos:
+            simple: https://git.oschina.net/itmuch/spring-cloud-config-repo.git
+            special:
+              pattern: special*/dev*,*special*/dev*
+              uri: https://git.oschina.net/itmuch/spring-cloud-config-repo.git
+
+
 logging:
   level:
     org.springframework.cloud: debug # 通过debug，我们可以看到根目录在（o.s.boot.SpringApplication started by xxxxx in C:\Users\xxxxx\IdeaProjects\mallcloud)
 
-#云配置中心
-# spring:
-#  cloud:
-#    config:
-#      server:
-#        git:
-#          # Git仓库地址
-#          uri: https://git.oschina.net/itmuch/spring-cloud-config-repo.git
-#          # Git仓库账号
-#          username:
-#          # Git仓库密码
-#          password:
+
 
