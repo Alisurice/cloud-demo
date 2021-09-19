@@ -2,6 +2,12 @@ profile: ver1.0
 
 server:
   port: 8083
+
+logging:
+  level:
+    org.springframework.cloud: info
+
+
 spring:
   application:
     name: config-server
