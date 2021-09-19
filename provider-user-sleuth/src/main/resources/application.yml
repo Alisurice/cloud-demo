@@ -1,0 +1,46 @@
+server:
+  port: 8000 #指定运行端口
+spring:
+  application:
+    name: provider-user-sleuth #指定服务名称
+  datasource:
+    url: jdbc:mysql://localhost:3306/mallcloud?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  zipkin:
+    base-url: http://localhost:9411
+    sleuth:
+      sampler:
+        # 采样率，模式0.1，也就是10%，为了便于观察效果，改为1.0，也就是100%。生产环境建议保持默认。
+        probability: 1.0
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    server-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    prefer-ip-address: true
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+
+logging:
+  level:
+    com.demo.cloud.mapper: debug
+    org.springframework.cloud.sleuth: DEBUG
+---
+server:
+  port: 8001 #指定运行端口
+
+spring:
+  profiles: provider2
