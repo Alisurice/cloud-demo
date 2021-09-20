@@ -15,12 +15,24 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class ProviderUserSleuthApplication {
 
-    public static void main(String[] args) throws UnknownHostException {
-        Logger log = LoggerFactory.getLogger(ProviderUserSleuthApplication.class);
-        ConfigurableApplicationContext application = SpringApplication.run(ProviderUserSleuthApplication.class, args);
+    public static void main(String[] args) {
+        String className = Thread.currentThread().getStackTrace()[1].getClassName();
+        //System.out.println(className);
+        Logger log = LoggerFactory.getLogger(className);
+        ConfigurableApplicationContext application = null;
+        try {
+            application = SpringApplication.run(Class.forName(className), args);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Environment env = application.getEnvironment();
 
-        String ip = InetAddress.getLocalHost().getHostAddress();
+        String ip = null;
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
         String port = env.getProperty("server.port");
         String path = env.getProperty("server.servlet.context-path");

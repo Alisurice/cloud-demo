@@ -19,6 +19,13 @@
     </properties>
     <dependencies>
 
+        <!--ELK logstash-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>6.1</version>
+        </dependency>
+
         <!--zipkin分布式跟踪系统-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
