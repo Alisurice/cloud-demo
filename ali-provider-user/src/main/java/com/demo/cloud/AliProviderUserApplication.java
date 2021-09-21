@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@EnableDiscoveryClient
+
 @MapperScan("com.demo.cloud.mapper")
 @SpringBootApplication
 public class AliProviderUserApplication {
