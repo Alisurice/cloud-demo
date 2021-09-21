@@ -2,6 +2,7 @@ package com.demo.cloud.controller;
 
 import com.demo.cloud.mapper.UserMapper;
 import com.demo.cloud.model.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class UserController {
         return this.userMapper.selectByPrimaryKey(id);
     }
 
-    @Value("${profile}")
+    @Value("${profile:#{null}")
     private String profile;
     @GetMapping("/profile")
     @ResponseBody

@@ -1,40 +1,39 @@
 package com.demo.cloud;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+//@EnableFeignClients
+//@EnableCircuitBreaker
+//@EnableHystrixDashboard
 @EnableDiscoveryClient
-@MapperScan("com.demo.cloud.mapper")
 @SpringBootApplication
-public class AliProviderUserApplication {
-
-    public static void main(String[] args) {
-        String className = Thread.currentThread().getStackTrace()[1].getClassName();
-        //System.out.println(className);
-        Logger log = LoggerFactory.getLogger(className);
-        ConfigurableApplicationContext application = null;
-        try {
-            application = SpringApplication.run(Class.forName(className), args);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+public class AliConsumerMovieApplication {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+    public static void main(String[] args) throws UnknownHostException {
+        Logger log = LoggerFactory.getLogger(AliConsumerMovieApplication.class);
+        ConfigurableApplicationContext application = SpringApplication.run(AliConsumerMovieApplication.class, args);
         Environment env = application.getEnvironment();
 
-        String ip = null;
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        String ip = InetAddress.getLocalHost().getHostAddress();
 
         String port = env.getProperty("server.port");
         String path = env.getProperty("server.servlet.context-path");
@@ -47,6 +46,5 @@ public class AliProviderUserApplication {
                 "External访问网址: \thttp://" + ip + ":" + port + path + "\n\t" +
                 "----------------------------------------------------------");
     }
-
 
 }
