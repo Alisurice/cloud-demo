@@ -18,8 +18,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @EnableFeignClients
-//@EnableCircuitBreaker
-//@EnableHystrixDashboard
+@EnableCircuitBreaker
+@EnableHystrixDashboard
 @EnableDiscoveryClient
 @SpringBootApplication
 public class AliConsumerMovieApplication {

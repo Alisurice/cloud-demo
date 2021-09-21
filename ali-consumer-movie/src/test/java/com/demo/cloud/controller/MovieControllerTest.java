@@ -36,7 +36,7 @@ class MovieControllerTest {
         RestTemplate restTemplate = new RestTemplate();
         for(int j = 0; j < 10; j++){
             Thread thread = new Thread(() -> {
-                for(int i = 0; i < 200; i++){
+                for(int i = 0; i < 20; i++){
                     System.out.println(Thread.currentThread().getName()+": "+restTemplate.getForObject("http://localhost:{port}/movies/users/1", User.class, port));
                     try {
                         Thread.sleep(300);
