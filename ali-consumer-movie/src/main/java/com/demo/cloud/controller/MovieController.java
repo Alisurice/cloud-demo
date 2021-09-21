@@ -25,8 +25,8 @@ import java.net.URI;
 @RestController
 public class MovieController {
     private static final Logger LOG = LoggerFactory.getLogger(MovieController.class);
-    //@Autowired
-    //private UserFeignClient userFeignClient;
+    @Autowired
+    private UserFeignClient userFeignClient;
     @Autowired
     private LoadBalancerClient loadBalancer;
     @Autowired
@@ -36,10 +36,10 @@ public class MovieController {
     @GetMapping("/users/{id}")
     @HystrixCommand(fallbackMethod = "findUserFallBack")
     public User findUser(@PathVariable("id") long id){
-        User user = this.restTemplate.getForObject("http://provider-user/user/{id}",User.class, id);
+        //User user = this.restTemplate.getForObject("http://provider-user/user/{id}",User.class, id);
 
         //负载均衡
-        //User user = this.userFeignClient.findById(id);
+        User user = this.userFeignClient.findById(id);
         //打印当前选择的微服务节点
         ServiceInstance instance = loadBalancer.choose("provider-user");
         LOG.info("{}:{}:{}",instance.getServiceId(),instance.getHost(), instance.getPort());
