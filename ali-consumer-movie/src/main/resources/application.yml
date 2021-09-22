@@ -1,0 +1,30 @@
+server:
+  port: 8010 #指定运行端口
+spring:
+  application:
+    name: consumer-movie #指定服务名称，不要使用下划线，不然ribbon会报错？
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+provider-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: provider-user
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream,health,info
+
+

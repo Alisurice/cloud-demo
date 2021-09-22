@@ -1,0 +1,34 @@
+server:
+  port: 8000 #指定运行端口
+spring:
+  application:
+    name: provider-user #指定服务名称
+  datasource:
+    url: jdbc:mysql://localhost:3306/mallcloud?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    com.demo.cloud.mapper: debug
+---
+server:
+  port: 8001 #指定运行端口
+
+spring:
+  profiles: provider2
